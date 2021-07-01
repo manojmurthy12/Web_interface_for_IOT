@@ -10,75 +10,49 @@ code {
 }
 </style>
 </head>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
-async function switch1status()
-{
-theUrl='https://switchserver.herokuapp.com/retrievestatus?query=on'
-        let response = await fetch(
-          theUrl
-        );
-        let data = await response.json();
-        console.log(data);
-        return data;
-
-
-}
-function switch1(){
-axios.get("/https://switchserver.herokuapp.com/retrievestatus?query=on")
+    function switchstatus(){
+theUrl='https://lower-hockey-36731.herokuapp.com/https://switchserver.herokuapp.com/retrievestatus?query=on'
+axios.get(theUrl)
         .then(response => {
         result=response.data;
           if(result['switch1']===true)
-          {document.getElementById('1').value='ON';;
+          {document.getElementById('1').value='ON';
           }
           if(result['switch1']===false)
           {document.getElementById('1').value='OFF';}
+          if(result['switch2']===true)
+          {document.getElementById('2').value='ON';
+          }
+          if(result['switch2']===false)
+          {document.getElementById('2').value='OFF';}
         }).catch(error => console.error(error));
 }
+</script>
+<body>
+<form>
+    <input type="button" id="load" value="refresh" style="color:blue"
+       onclick="switchstatus();" >
+</form>
+</body>
 
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
 function toggle(button)
 {
   if(document.getElementById("1").value=="OFF"){
    document.getElementById("1").value="ON";
    theUrl='https://switchserver.herokuapp.com/switch1?query=on'
    var xmlHttp = new XMLHttpRequest();
-   xmlHttp.open( "GET", theUrl, true );
-   xmlHttp.onreadystatechange = function (oEvent) {
-    if (xmlHttp.readyState === 4) {
-        if (xmlHttp.status === 200) {
-          console.log(xmlHttp.responseText)
-        } else {
-           console.log("Error", xmlHttp.statusText);
-        }
-    }
-    };
-    console.log(xmlHttp.responseText);
-    xmlHttp.send();
-   if (xmlHttp.status == 0)
-    console.log(xmlHttp.responseText);
-
-}
+   xmlHttp.open( "GET", theUrl, false );
+   xmlHttp.send();}
 
   else if(document.getElementById("1").value=="ON"){
    document.getElementById("1").value="OFF";
    theUrl='https://switchserver.herokuapp.com/switch1?query=off'
    var xmlHttp = new XMLHttpRequest();
-   xmlHttp.open( "GET", theUrl, true );
-   xmlHttp.onreadystatechange = function (oEvent) {
-    if (xmlHttp.readyState === 4) {
-        if (xmlHttp.status === 200) {
-          console.log(xmlHttp.responseText)
-        } else {
-           console.log("Error", xmlHttp.statusText);
-        }
-    }
-    };
-    console.log(xmlHttp.responseText);
-    xmlHttp.send();
-   if (xmlHttp.status == 0)
-    console.log(xmlHttp.responseText);
-   }
+   xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send();}
 }
 </script>
 <body>
@@ -88,27 +62,10 @@ function toggle(button)
        onclick="toggle(this);">
 
 </form>
-<form>
-    <input type="button" id="11" value="refresh" style="color:blue"
-       onclick="switch1();" >
-</form>
 
 </body>
 
 <script type="text/javascript">
-function switch2status()
-{
-theUrl='https://switchserver.herokuapp.com/retrievestatus?query=on'
-   var xmlHttp = new XMLHttpRequest();
-   xmlHttp.open( "GET", theUrl, true );
-   xmlHttp.send(null);
-   var result = JSON.parse(xmlHttp.responseText);
-   if(result['switch2']==true)
-   {document.getElementById("2").value="ON";}
-   if(result['switch2']==false)
-   {document.getElementById("2").value="OFF";}
-}
-
 
 function toggle2(button)
 {
@@ -116,7 +73,7 @@ function toggle2(button)
    document.getElementById("2").value="ON";
    theUrl='https://switchserver.herokuapp.com/switch2?query=on'
    var xmlHttp = new XMLHttpRequest();
-   xmlHttp.open( "GET", theUrl, true );
+   xmlHttp.open( "GET", theUrl, false );
    xmlHttp.send(null);
 
    }
@@ -125,7 +82,7 @@ function toggle2(button)
    document.getElementById("2").value="OFF";
    theUrl='https://switchserver.herokuapp.com/switch2?query=off'
    var xmlHttp = new XMLHttpRequest();
-   xmlHttp.open( "GET", theUrl, true );
+   xmlHttp.open( "GET", theUrl, false );
    xmlHttp.send(null);
    }
 }
@@ -135,8 +92,7 @@ function toggle2(button)
 <form action="">
 <input type="button" id="2" value="ON" style="color:blue"
        onclick="toggle2(this);">
-    <input type="button" id="21" value="refresh" style="color:blue"
-       onclick="switch2status();" >
+
 </form>
 </body>
 
